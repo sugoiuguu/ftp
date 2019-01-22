@@ -75,12 +75,7 @@ func (mock *ftpMock) Close() {
 	mock.listener.Close()
 }
 
-// ftp.mozilla.org uses multiline 220 response
 func TestMultiline(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping test in short mode.")
-	}
-
 	address := "localhost:2121"
 	mock := newFtpMock(t, address)
 	defer mock.Close()

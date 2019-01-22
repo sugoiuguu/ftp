@@ -27,14 +27,9 @@ func testConn(t *testing.T, disableEPSV bool) {
 		t.Skip("skipping test in short mode.")
 	}
 
-	c, err := DialTimeout("localhost:21", 5*time.Second)
+	c, err := DialWithOptions("localhost:21", DialWithTimeout(5*time.Second), DialWithDisabledEPSV(disableEPSV))
 	if err != nil {
 		t.Fatal(err)
-	}
-
-	if disableEPSV {
-		delete(c.features, "EPSV")
-		c.DisableEPSV = true
 	}
 
 	err = c.Login("anonymous", "anonymous")
